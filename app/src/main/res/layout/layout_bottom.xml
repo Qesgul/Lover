@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <View
+        android:id="@+id/calendar_edit_bar_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/shadow_height_3dp"
+        android:background="@drawable/view_top_shadow" />
+    <RelativeLayout
+        android:id="@+id/RL_calendar_edit_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_bar_height"
+        android:background="@color/themeColor_mistuha"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="202dp">
+        <TextView
+            android:layout_marginLeft="38dp"
+            android:id="@+id/TV_entries_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="To My Baby"
+            android:textColor="@android:color/white"
+            android:textSize="18dp" />
+
+        <ImageView
+            android:id="@+id/IV_calendar_menu"
+            android:layout_width="28dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="28dp"
+            android:layout_toStartOf="@+id/IV_calendar_edit"
+            android:background="@mipmap/ic_bottom_lock" />
+
+        <ImageView
+            android:id="@+id/IV_calendar_edit"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignTop="@+id/IV_calendar_photo"
+            android:layout_marginRight="28dp"
+            android:layout_toStartOf="@+id/IV_calendar_photo"
+            android:src="@mipmap/ic_bottom_cloud" />
+
+        <ImageView
+            android:id="@+id/IV_calendar_photo"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="28dp"
+            android:src="@mipmap/ic_bottom_setting" />
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>
