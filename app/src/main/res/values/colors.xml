@@ -70,4 +70,8 @@
 
     <!--OOBE-->
     <color name="OOBE_bg_color">#e570A3B4</color>
+
+    <!--weather-->
+    <color name="colorFont">#EF7265</color>
+    <color name="colorBackground">#f5f5f5</color>
 </resources>

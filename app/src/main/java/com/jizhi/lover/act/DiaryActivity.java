@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.jizhi.lover.R;
 import com.jizhi.lover.frg.frg_diary_calendar;
@@ -24,6 +25,7 @@ public class DiaryActivity extends BaseActivity implements View.OnClickListener{
     private FragmentPagerAdapter mAdapter;
     private List<Fragment> mFragments;
     private Button btn_diary_calendar,btn_diary_times,btn_diary_weather;
+    private TextView TV_diary_topbar_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class DiaryActivity extends BaseActivity implements View.OnClickListener{
         btn_diary_weather=findViewById(R.id.btn_diary_weather);
         btn_diary_weather.setOnClickListener(this);
         Diary_viewpager=findViewById(R.id.viewpager_diary);
+        TV_diary_topbar_title=findViewById(R.id.TV_diary_topbar_title);
         mFragments = new ArrayList<Fragment>();
         Fragment mTab01 = new frg_diary_calendar();
         Fragment mTab02 = new frg_diary_times();
@@ -127,6 +130,7 @@ public class DiaryActivity extends BaseActivity implements View.OnClickListener{
                 btn_diary_calendar.setTextColor(getResources().getColor(R.color.white));
                 btn_diary_times.setTextColor(getResources().getColor(R.color.themeColor_mistuha));
                 btn_diary_weather.setTextColor(getResources().getColor(R.color.themeColor_mistuha));
+                TV_diary_topbar_title.setText("Calendar");
                 break;
             case 1:
                 btn_diary_calendar.setBackground(getDrawable(R.drawable.shape_diary_left_normal));
@@ -135,6 +139,7 @@ public class DiaryActivity extends BaseActivity implements View.OnClickListener{
                 btn_diary_calendar.setTextColor(getResources().getColor(R.color.themeColor_mistuha));
                 btn_diary_times.setTextColor(getResources().getColor(R.color.white));
                 btn_diary_weather.setTextColor(getResources().getColor(R.color.themeColor_mistuha));
+                TV_diary_topbar_title.setText("Times");
                 break;
             case 2:
                 btn_diary_calendar.setBackground(getDrawable(R.drawable.shape_diary_left_normal));
@@ -143,6 +148,7 @@ public class DiaryActivity extends BaseActivity implements View.OnClickListener{
                 btn_diary_calendar.setTextColor(getResources().getColor(R.color.themeColor_mistuha));
                 btn_diary_times.setTextColor(getResources().getColor(R.color.themeColor_mistuha));
                 btn_diary_weather.setTextColor(getResources().getColor(R.color.white));
+                TV_diary_topbar_title.setText("江苏 南京");
                 break;
         }
     }
