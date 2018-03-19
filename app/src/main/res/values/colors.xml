@@ -74,4 +74,5 @@
     <!--weather-->
     <color name="colorFont">#EF7265</color>
     <color name="colorBackground">#f5f5f5</color>
+    <color name="silver">#ffc0c0c0</color>
 </resources>

@@ -35,9 +35,9 @@ public class TimeUtils {
 	 * 获取当前时间second
 	 * @return
 	 */
-	public static String getSecTime(Long times){
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
-		Date date = new Date(times);
+	public static String getSecTime( ){
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+		Date date = new Date(System.currentTimeMillis());
 		return simpleDateFormat.format(date);
 	}
 	public static int daysBetween(String date) throws ParseException {

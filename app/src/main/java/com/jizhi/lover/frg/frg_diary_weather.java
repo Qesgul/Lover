@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -25,9 +26,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.jizhi.lover.R;
 import com.jizhi.lover.Utils.HttpUtil;
+import com.jizhi.lover.Utils.TimeUtils;
 import com.jizhi.lover.act.MainActivity;
+import com.jizhi.lover.data.Forecast;
+import com.jizhi.lover.data.Weather;
 
 import java.io.IOException;
 
@@ -42,16 +47,12 @@ import okhttp3.Response;
 
 public class frg_diary_weather extends Fragment {
     public SwipeRefreshLayout swipeRefresh;
-
+    public Weather weather;
     // 以下是 weather_noew 的内容
-
     private TextView degreeText;
-
     private TextView weatherInfoText;
-
     private RelativeLayout weaherNowLayout;
-
-    private TextView updateTimeText;
+    private TextView updateTimeText,tv_weather_fx,tv_weather_fl,tv_weather_quality,tv_weather_shidu,tv_weather_aqi,tv_weather_range,tv_times_range,tv_tips;
 
 
     @Override
@@ -60,7 +61,7 @@ public class frg_diary_weather extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.frg_weather, container, false);
         initView(view);
-        requestWeather("beijing");
+        requestWeather();
         return view;
     }
     
@@ -71,6 +72,14 @@ public class frg_diary_weather extends Fragment {
         updateTimeText = view.findViewById(R.id.update_time_text);
         swipeRefresh = view.findViewById(R.id.swipe_refresh);
         weaherNowLayout = view.findViewById(R.id.weather_now_layout);
+        tv_weather_fx=view.findViewById(R.id.weather_fx);
+        tv_weather_fl=view.findViewById(R.id.weather_fl);
+        tv_weather_quality=view.findViewById(R.id.weather_quality);
+        tv_weather_shidu=view.findViewById(R.id.weather_shidu);
+        tv_weather_aqi=view.findViewById(R.id.weather_aqi);
+        tv_weather_range=view.findViewById(R.id.weather_range);
+        tv_times_range=view.findViewById(R.id.time_range);
+        tv_tips=view.findViewById(R.id.tips);
         swipeRefresh.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -93,44 +102,35 @@ public class frg_diary_weather extends Fragment {
     /**
      * 根据城市地点请求城市天气信息
      */
-    public void requestWeather(String cityName){
-        String address = "https://api.heweather.com/v5/weather?city=" + cityName + "&key=f44eaed629a3413892daca1ae2e3ce2f";
+    public void requestWeather(){
+        String address = "https://www.sojson.com/open/api/weather/json.shtml?city=%E5%8D%97%E4%BA%AC";
         HttpUtil.sendOkHttpRequest(address, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
-                Looper.prepare();
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getContext(),"fail",Toast.LENGTH_SHORT).show();
-                    }
-                });
+                Toast.makeText(getContext(),"fail",Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String responseText = response.body().string();
-//                final Weather weather = Utility.handleWeatherResponse(responseText);
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (weather != null && "ok".equals(weather.status)){
-//                            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(MainActivity.this).edit();
-//                            editor.putString("weatherResponse", responseText);
-//                            editor.putString("cityName",cityName);
-//                            editor.apply();
-//                            showWeatherInfo(weather);
-//                        }else{
-//                            showShort("获取天气信息2失败");
-//                        }
-//                    }
-//                });
-                Looper.prepare();
+                weather=new Gson().fromJson(responseText,Weather.class);
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getContext(),responseText,Toast.LENGTH_SHORT).show();
+                        if(weather!=null)
+                        degreeText.setText(weather.getData().getWendu());
+                        weatherInfoText.setText(weather.getData().getForecast().get(0).getType()+" "+"|");
+                        tv_weather_fx.setText(weather.getData().getForecast().get(0).getFx());
+                        tv_weather_fl.setText(weather.getData().getForecast().get(0).getFl());
+                        tv_weather_shidu.setText(weather.getData().getShidu());
+                        tv_weather_quality.setText("空气"+weather.getData().getQuality());
+                        tv_weather_aqi.setText(String.valueOf(weather.getData().getForecast().get(0).getAqi()));
+                        String temp=weather.getData().getForecast().get(0).getHigh().substring(3)+"~"+weather.getData().getForecast().get(0).getLow().substring(3);
+                        tv_weather_range.setText(temp);
+                        tv_times_range.setText(weather.getData().getForecast().get(0).getSunrise()+"~"+weather.getData().getForecast().get(0).getSunset());
+                        tv_tips.setText(weather.getData().getForecast().get(0).getNotice());
+                        updateTimeText.setText("今日"+TimeUtils.getSecTime()+"发布");
                     }
                 });
             }
@@ -158,9 +158,7 @@ public class frg_diary_weather extends Fragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                String cityName = prefs.getString("cityName", null);
-                requestWeather(cityName);
+                requestWeather();
                 Animation alpha = AnimationUtils.loadAnimation(getActivity(),R.anim.alpha_after);
                 view.startAnimation(alpha);
             }

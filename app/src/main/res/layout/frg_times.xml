@@ -65,7 +65,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="15dp"
                 android:layout_toLeftOf="@id/LL_entries_item_icon"
                 android:layout_toRightOf="@id/LL_entries_item_day"
                 android:orientation="vertical">
@@ -79,7 +79,7 @@
                     android:layout_marginTop="16dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="Since We Know Each"
+                    android:text="Together"
                     android:textColor="@color/themeColor_mistuha"
                     android:textSize="16dp" />
 

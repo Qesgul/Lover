@@ -1,55 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="360dp"
-    android:background="@color/white">
+    android:layout_height="260dp"
+    android:background="@null"
+    android:padding="16dp">
 
     <RelativeLayout
         android:id="@+id/weather_now_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        >
+
+        <ImageView
+            android:layout_marginRight="10dp"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/textView3"
+            android:src="@mipmap/weather_sun" />
 
         <TextView
+            android:layout_marginLeft="18dp"
             android:id="@+id/degree_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="14"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/update_time_text"
             android:gravity="center"
+            android:text="14"
             android:textColor="@color/colorFont"
-            android:textSize="120sp"/>
+            android:textSize="66sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/degree_text"
-            android:layout_alignTop="@+id/degree_text"
+            android:layout_alignBaseline="@+id/degree_text"
+            android:layout_alignBottom="@+id/degree_text"
+            android:layout_toEndOf="@+id/degree_text"
             android:text="°"
             android:textColor="@color/colorFont"
-            android:textSize="120sp"
-            />
+            android:textSize="66sp"
+            android:id="@+id/textView3" />
 
         <TextView
-            android:text="多云"
+            android:layout_marginLeft="18dp"
             android:id="@+id/weather_info_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/degree_text"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/degree_text"
+            android:text="多云 |"
             android:textColor="@color/colorFont"
-            android:textSize="20sp"/>
+            android:textSize="18sp" />
 
         <TextView
+            android:layout_marginLeft="18dp"
             android:id="@+id/update_time_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/degree_text"
-            android:layout_centerHorizontal="true"
-            android:text="数据更新时间： 16:54"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="今日16:54发布"
             android:textColor="@color/colorFont"
-            android:textSize="12sp"/>
-
+            android:textSize="12sp" />
+        <TextView
+            android:layout_marginLeft="12dp"
+            android:id="@+id/weather_quality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/degree_text"
+            android:layout_toEndOf="@+id/weather_info_text"
+            android:text="空气优 "
+            android:textColor="@color/colorFont"
+            android:textSize="18sp" />
 
     </RelativeLayout>
 
