@@ -1,7 +1,10 @@
 package com.jizhi.lover.adapter;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -17,6 +20,7 @@ import com.jizhi.lover.R;
 import com.jizhi.lover.act.DiaryActivity;
 import com.jizhi.lover.act.MatterActivity;
 import com.jizhi.lover.data.Matter;
+import com.jizhi.lover.data.MyDatabaseHelper;
 
 import java.util.List;
 
@@ -26,7 +30,10 @@ import java.util.List;
 
 public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.ViewHolder>{
     private Context mContext;
-    List<Matter> list;
+    private List<Matter> list;
+    private MyDatabaseHelper dbHelper;
+    private SQLiteDatabase db;
+    private Handler handler=new Handler(); //在主线程中创建handler
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         android.view.View View;
@@ -37,6 +44,7 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.ViewHolder>{
             super(itemView);
             View = itemView;
             TV_memo_item_content=itemView.findViewById(R.id.TV_memo_item_content);
+
         }
     }
 
@@ -48,16 +56,30 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.ViewHolder>{
 
     @Override
     public MemoAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_memo_item, parent, false);
         final MemoAdapter.ViewHolder holder = new MemoAdapter.ViewHolder(view);
+        dbHelper = new MyDatabaseHelper(mContext, "jizhi233.db", null, 1);
+        db = dbHelper.getWritableDatabase();
         holder.View.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-                Matter matter=list.get(position);
-                SpannableString spannableContent = new SpannableString(matter.getMemo());
-                spannableContent.setSpan(new StrikethroughSpan(), 0, spannableContent.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                Toast.makeText(v.getContext(), "you clicked " + position, Toast.LENGTH_SHORT).show();
+                final int position = holder.getAdapterPosition();
+                final Matter matter=list.get(position);
+                matter.setIsover(Math.abs(matter.getIsover()-1));
+                new Thread(){//创建一个新的线程
+                    public void run(){
+                        try {
+                            modifyMatter(matter);
+                            handler.post(new Runnable() {
+                                public void run() {
+                                    setItem(holder,position);
+                                }
+                            });
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
             }
         });
         return holder;
@@ -65,16 +87,7 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(MemoAdapter.ViewHolder holder, int position) {
-        Matter matter=list.get(position);
-        if(matter.getIsover()==1){
-            SpannableString spannableContent = new SpannableString(matter.getMemo());
-            spannableContent.setSpan(new StrikethroughSpan(), 0, spannableContent.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            holder.TV_memo_item_content.setText(spannableContent);
-            holder.TV_memo_item_content.setAlpha(0.4F);
-        }else {
-            holder.TV_memo_item_content.setText(matter.getMemo());
-        }
-
+        setItem(holder,position);
     }
 
     @Override
@@ -82,5 +95,26 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.ViewHolder>{
         return list.size();
     }
 
-
+    private void setItem(MemoAdapter.ViewHolder holder, final int position) {
+        Matter matter=list.get(position);
+        if(matter!=null){
+            if(matter.getIsover()==1){
+                SpannableString spannableContent = new SpannableString(matter.getMemo());
+                spannableContent.setSpan(new StrikethroughSpan(), 0, spannableContent.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                holder.TV_memo_item_content.setText(spannableContent);
+                holder.TV_memo_item_content.setAlpha(0.4F);
+            }else {
+                holder.TV_memo_item_content.setText(matter.getMemo());
+               holder.TV_memo_item_content.setAlpha(1F);
+            }
+        }
+    }
+    public void modifyMatter(Matter message){
+        ContentValues values = new ContentValues();
+        values.put("memo", message.getMemo());
+        values.put("isover",message.getIsover());
+        values.put("time",message.getTime());
+        db.update("Matter", values, "time = ?", new String[] { message.getTime() });
+        values.clear();
+    }
 }

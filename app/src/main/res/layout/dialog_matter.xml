@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@color/themeColor_mistuha"
+            android:padding="10dp">
+            <EditText
+                android:id="@+id/EDT_matter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="@android:color/white"
+                android:gravity="center"
+                android:hint="请输入事件"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/edittext_hint"
+                android:textSize="24dp" />
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp">
+
+            <Space
+                android:id="@+id/Space_your_name"
+                android:layout_width="20dp"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+
+            <Button
+                android:id="@+id/Btn_matter_sure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/Space_your_name"
+                android:background="@drawable/select_button"
+                android:gravity="center"
+                android:text="确定"
+                android:textAllCaps="false"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/Btn_matter_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/Space_your_name"
+                android:background="@drawable/select_button"
+                android:gravity="center"
+                android:text="取消"
+                android:textAllCaps="false"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

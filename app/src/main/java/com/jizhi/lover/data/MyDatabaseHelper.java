@@ -8,9 +8,10 @@ import android.widget.Toast;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
-    public static final String CREATE_MATTER= "create table PasswodSafe ("
+    public static final String CREATE_MATTER= "create table Matter ("
             + "id integer primary key autoincrement, "
             + "memo text, "
+            + "time text,"
             + "isover int) " ;
 
 

@@ -17,7 +17,8 @@
             android:layout_height="88dp"
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@+id/textView3"
-            android:src="@mipmap/weather_sun" />
+            android:src="@mipmap/weather_sun"
+            android:id="@+id/imageView2" />
 
         <TextView
             android:layout_marginLeft="18dp"

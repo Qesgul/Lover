@@ -68,7 +68,7 @@ public class DiaryActivity extends BaseActivity implements View.OnClickListener{
             }
         };
         Diary_viewpager.setAdapter(mAdapter);
-
+        Diary_viewpager.setOffscreenPageLimit(3);
         Diary_viewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
         {
 

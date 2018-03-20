@@ -7,6 +7,7 @@ package com.jizhi.lover.data;
 public class Matter {
     String memo;
     int isover;
+    String time;
 
     public String getMemo() {
         return memo;
@@ -22,5 +23,13 @@ public class Matter {
 
     public void setIsover(int isover) {
         this.isover = isover;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

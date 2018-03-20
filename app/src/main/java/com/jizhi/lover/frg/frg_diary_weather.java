@@ -51,7 +51,7 @@ public class frg_diary_weather extends Fragment {
     // 以下是 weather_noew 的内容
     private TextView degreeText;
     private TextView weatherInfoText;
-    private RelativeLayout weaherNowLayout;
+    private ScrollView weaherNowLayout;
     private TextView updateTimeText,tv_weather_fx,tv_weather_fl,tv_weather_quality,tv_weather_shidu,tv_weather_aqi,tv_weather_range,tv_times_range,tv_tips;
 
 
@@ -71,7 +71,7 @@ public class frg_diary_weather extends Fragment {
         weatherInfoText = view.findViewById(R.id.weather_info_text);
         updateTimeText = view.findViewById(R.id.update_time_text);
         swipeRefresh = view.findViewById(R.id.swipe_refresh);
-        weaherNowLayout = view.findViewById(R.id.weather_now_layout);
+        weaherNowLayout = view.findViewById(R.id.weather_layout);
         tv_weather_fx=view.findViewById(R.id.weather_fx);
         tv_weather_fl=view.findViewById(R.id.weather_fl);
         tv_weather_quality=view.findViewById(R.id.weather_quality);

@@ -14,7 +14,7 @@
             android:layout_height="match_parent"
             android:scrollbars="none"
             android:overScrollMode="always"
-            android:background="@color/white"
+            android:background="@drawable/shape_signal"
             >
             <LinearLayout
                 android:orientation="vertical"

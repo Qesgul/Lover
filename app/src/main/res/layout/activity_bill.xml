@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/top_bar_height"
         android:layout_alignParentTop="true"
-        android:background="@color/themeColor_mistuha"
+        android:background="@color/white"
         android:fitsSystemWindows="true"
         android:orientation="horizontal">
         <TextView
@@ -25,18 +25,17 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:textColor="@android:color/white"
+            android:textColor="@color/themeColor_mistuha"
             android:textSize="20dp" />
-
-        <ImageView
-            android:id="@+id/IV_memo_edit"
+        <Button
+            android:id="@+id/show_money_button"
+            android:text="显示余额"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:src="@mipmap/ic_add_white_36dp" />
-
+            android:minHeight="0dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/btn_default_shape"
+            android:layout_marginTop="6dp" />
     </RelativeLayout>
 
     <RelativeLayout

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.jizhi.lover.R;
 import com.jizhi.lover.act.DiaryActivity;
+import com.jizhi.lover.act.MatterActivity;
 
 /**
  * Created by zheng_liu on 2018/1/30.
@@ -51,9 +52,21 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
-                Toast.makeText(v.getContext(), "you clicked " + position, Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(mContext, DiaryActivity.class);
-                mContext.startActivity(intent);
+                switch (position){
+                    case 0:
+                        Intent intent=new Intent(mContext, DiaryActivity.class);
+                        mContext.startActivity(intent);
+                        break;
+                    case 1:
+                        Intent intent0=new Intent(mContext, DiaryActivity.class);
+                        mContext.startActivity(intent0);
+                        break;
+                    case 2:
+                        Intent intent1=new Intent(mContext, MatterActivity.class);
+                        mContext.startActivity(intent1);
+                        break;
+                    default: break;
+                }
             }
         });
         return holder;
