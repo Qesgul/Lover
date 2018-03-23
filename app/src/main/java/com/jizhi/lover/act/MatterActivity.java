@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -35,9 +36,11 @@ public class MatterActivity extends BaseActivity implements AddMatterDialogFragm
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(getPackageName(), "222");
         setContentView(R.layout.activity_matter);
+        Log.i(getPackageName(), "333");
         init();
-
+        Log.i(getPackageName(), "444");
     }
     public void init(){
         dbHelper = new MyDatabaseHelper(this, "jizhi233.db", null, 1);

@@ -1,18 +1,24 @@
 package com.jizhi.lover.act;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +30,9 @@ import com.jizhi.lover.R;
 import com.jizhi.lover.Utils.PicUtils;
 import com.jizhi.lover.adapter.MainItemAdapter;
 import com.jizhi.lover.frg.YourNameDialogFragment;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends BaseActivity implements YourNameDialogFragment.YourNameCallback{
     private ImageView IV_main_profile_picture;
@@ -37,6 +46,13 @@ public class MainActivity extends BaseActivity implements YourNameDialogFragment
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            //申请权限  第二个参数是一个 数组 说明可以同时申请多个权限
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS}, 1);
+        }else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS}, 1);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
@@ -51,6 +67,29 @@ public class MainActivity extends BaseActivity implements YourNameDialogFragment
         LL_main_profile.setOnClickListener(new ChangePicListener());
         main_recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mainItemAdapter=new MainItemAdapter(this);
+        mainItemAdapter.setOnItemClickListener(new MainItemAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                switch (position){
+                    case 0:
+                        Intent intent=new Intent(MainActivity.this, BillActivity.class);
+                        startActivity(intent);
+                        Log.i(getPackageName(), "1 ");
+                        break;
+                    case 1:
+                        Intent intent0=new Intent(MainActivity.this, DiaryActivity.class);
+                        startActivity(intent0);
+                        Log.i(getPackageName(), "1 ");
+                        break;
+                    case 2:
+                        Intent intent1=new Intent(MainActivity.this, MatterActivity.class);
+                        startActivity(intent1);
+                        Log.i(getPackageName(), "1 ");
+                        break;
+                    default: break;
+                }
+            }
+        });
         main_recyclerView.setAdapter(mainItemAdapter);
     }
     private void initProfile() {
@@ -69,6 +108,10 @@ public class MainActivity extends BaseActivity implements YourNameDialogFragment
             YourNameDialogFragment yourNameDialogFragment = new YourNameDialogFragment();
             yourNameDialogFragment.show(getSupportFragmentManager(), "yourNameDialogFragment");
         }
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
     }
 
     @Override

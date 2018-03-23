@@ -25,8 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".act.DiaryActivity"/>
-        <activity android:name=".act.MatterActivity"/>
+        <activity android:name=".act.DiaryActivity" />
+        <activity android:name=".act.MatterActivity" />
+        <activity android:name=".act.BillActivity"/>
     </application>
 
 </manifest>

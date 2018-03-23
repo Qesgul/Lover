@@ -45,13 +45,12 @@
         android:layout_below="@+id/RL_memo_topbar_content"
         android:paddingTop="10dp">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/RecyclerView_memo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="10dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp" />
+        <com.jizhi.lover.view.ObliqueImage
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:background="@mipmap/weather_bg"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true" />
 
     </RelativeLayout>
 

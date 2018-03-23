@@ -23,6 +23,15 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemAdapter.ViewHo
     private Context mContext;
     int[] imgs = new int[]{R.mipmap.img_bill, R.mipmap.img_diary, R.mipmap.img_memo};
     String[] strings= new String[]{"BILL","DIARY","MATTER"};
+    private OnRecyclerViewItemClickListener listener;
+
+    public interface OnRecyclerViewItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
+        this.listener = listener;
+    }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         View View;
@@ -48,27 +57,15 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemAdapter.ViewHo
     public MainItemAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main, parent, false);
         final MainItemAdapter.ViewHolder holder = new MainItemAdapter.ViewHolder(view);
-        holder.View.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-                switch (position){
-                    case 0:
-                        Intent intent=new Intent(mContext, DiaryActivity.class);
-                        mContext.startActivity(intent);
-                        break;
-                    case 1:
-                        Intent intent0=new Intent(mContext, DiaryActivity.class);
-                        mContext.startActivity(intent0);
-                        break;
-                    case 2:
-                        Intent intent1=new Intent(mContext, MatterActivity.class);
-                        mContext.startActivity(intent1);
-                        break;
-                    default: break;
+        // item click
+        if (listener != null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onItemClick(holder.itemView, holder.getAdapterPosition());
                 }
-            }
-        });
+            });
+        }
         return holder;
     }
 

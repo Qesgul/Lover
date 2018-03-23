@@ -28,7 +28,8 @@
         android:layout_marginRight="5dp"
         android:layout_toRightOf="@id/IV_memo_item_dot"
         android:gravity="center_vertical"
-        android:textSize="14dp" />
+        android:textSize="14dp"
+        android:textColor="@color/themeColor_mistuha"/>
 
     <ImageView
         android:layout_width="match_parent"
