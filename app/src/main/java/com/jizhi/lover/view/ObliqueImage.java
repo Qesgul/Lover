@@ -68,8 +68,8 @@ public class ObliqueImage extends View{
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int width = getMySize(500, widthMeasureSpec);
-        int height = getMySize(500, heightMeasureSpec);
+        int width = getMySize(600, widthMeasureSpec);
+        int height = getMySize(600, heightMeasureSpec);
 
         if (width < height) {
             height = width;
@@ -77,9 +77,7 @@ public class ObliqueImage extends View{
             width = height;
         }
         setMeasuredDimension(width, height);
-        pathPointer.moveTo(0, -mHight*2/3);
-        pathPointer.lineTo(-mWidth, -mHight);
-        pathPointer.close();
+
     }
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -93,10 +91,10 @@ public class ObliqueImage extends View{
         drawSrc(canvas);
     }
     private void drawSrc(Canvas canvas) {
-        canvas.save();
-        canvas.clipPath(pathPointer);// 先画好模块
+//        canvas.save();
+//        canvas.clipPath(pathPointer);// 先画好模块
         Bitmap ceshi=BitmapFactory.decodeResource(getResources(), R.mipmap.weather_bg);
-        float scale = 1;// 缩放量
+        float scale = 2;// 缩放量
         float w = getWidth();
         float h = getWidth();
         float scaleX = w / ceshi.getWidth();
@@ -104,8 +102,18 @@ public class ObliqueImage extends View{
         scale = scaleX > scaleY ? scaleX : scaleY;
         Matrix bottomMatrix=new Matrix();
         bottomMatrix.setScale(scale, scale);
+//        canvas.drawBitmap(ceshi,bottomMatrix,paint);
+//        canvas.restore();
+        canvas.save();
+        pathPointer.moveTo(0, mHight*2/3);
+        pathPointer.lineTo(mWidth, mHight);
+        pathPointer.lineTo(mWidth,0);
+        pathPointer.lineTo(0,0);
+        pathPointer.close();
+ //       pathPointer.addCircle(500, 500, 300, Path.Direction.CW);
+        canvas.clipPath(pathPointer);
         canvas.drawBitmap(ceshi,bottomMatrix,paint);
-        canvas.restore();
+        canvas.restore();//恢复画布
     }
 }
 

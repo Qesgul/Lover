@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/top_bar_height"
         android:layout_alignParentTop="true"
-        android:background="@color/white"
+        android:background="@color/themeColor_mistuha"
         android:fitsSystemWindows="true"
         android:orientation="horizontal">
         <TextView
@@ -21,21 +21,12 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/IV_memo_edit"
-            android:text="Plan matters Ver.6"
+            android:text="Bill Data  Ver.6"
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:textColor="@color/themeColor_mistuha"
+            android:textColor="@color/white"
             android:textSize="20dp" />
-        <Button
-            android:id="@+id/show_money_button"
-            android:text="显示余额"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="0dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/btn_default_shape"
-            android:layout_marginTop="6dp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -45,12 +36,7 @@
         android:layout_below="@+id/RL_memo_topbar_content"
         android:paddingTop="10dp">
 
-        <com.jizhi.lover.view.ObliqueImage
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:background="@mipmap/weather_bg"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true" />
+
 
     </RelativeLayout>
 
